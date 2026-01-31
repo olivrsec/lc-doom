@@ -1,17 +1,39 @@
-<Project Sdk="LethalCompany.Plugin.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <Title>LC-DOOM</Title>
     <Description>Play DOOM in the Ship's Terminal</Description>
     <PackageId>LC_DOOM</PackageId>
-    <PackageReadMeFile>..\..\README.md</PackageReadMeFile>
-    <PluginId>cryptoc1.lethalcompany.doom</PluginId>
-    <Version>1.1.2</Version>
+    <Version>1.2.0</Version>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="DOOM1.WAD" CopyToPublishDirectory="PreserveNewest" />
-    <None Include="LethalCompany.Doom.csproj.user" />
+    <PackageReference Include="LethalCompany.GameLibs.Steam" Version="65.0.0-alpha.1" />
+    <PackageReference Include="BepInEx.Core" Version="5.4.21" />
+    <PackageReference Include="HarmonyX" Version="2.10.0" />
+    <PackageReference Include="PolySharp" Version="1.14.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="DoomPlugin.cs" />
+    <Compile Include="Patches/TerminalPatches.cs" />
+    <Compile Include="Unity/DoomAudioSource.cs" />
+    <Compile Include="Unity/UnityDoom.cs" />
+    <Compile Include="Unity/UnitySound.cs" />
+    <Compile Include="Unity/UnityUserInput.cs" />
+    <Compile Include="Unity/UnityVideo.cs" />
+    <Compile Include="GeneratedPluginInfo.cs" />
+    <EmbeddedResource Include="Properties/Resources.resx" />
+    <Content Include="DOOM1.WAD" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
   <ItemGroup>

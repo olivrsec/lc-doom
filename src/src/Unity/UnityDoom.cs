@@ -1,3 +1,5 @@
+using System;
+using System.IO;
 using System.Runtime.ExceptionServices;
 using BepInEx.Configuration;
 using ManagedDoom;
