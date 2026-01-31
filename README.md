@@ -24,7 +24,7 @@ Then,
 
 ## Bug Report & Feature Request
 
-If you've encountered an error, or have a feature request, please open an issue on [GitHub](https://github.com/cryptoc1/lc-doom/issues/new).
+If you've encountered an error, or have a feature request, please open an issue on [GitHub](https://github.com/olivr/lc-doom/issues/new).
 
 When reporting an error, please include as most information as possible, such as any errors or logs from BepInEx, or the version of the game or mod.
 

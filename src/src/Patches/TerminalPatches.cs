@@ -69,7 +69,7 @@ internal static class TerminalPatches
             var node = ScriptableObject.CreateInstance<TerminalNode>();
             node.clearPreviousText = true;
             node.displayText = @$"{GeneratedPluginInfo.Name} v{GeneratedPluginInfo.Version}
-https://github.com/cryptoc1/lc-doom
+https://github.com/olivr/lc-doom
  
 CREDITS:
 • id Software

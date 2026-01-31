@@ -17,10 +17,10 @@
   <PropertyGroup>
     <Authors>Samuel Steele</Authors>
     <Copyright>$([System.DateTime]::Now.Year) Samuel Steele</Copyright>
-    <PackageProjectUrl>https://github.com/cryptoc1/lc-doom</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/olivr/lc-doom</PackageProjectUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/cryptoc1/lc-doom.git</RepositoryUrl>
+    <RepositoryUrl>https://github.com/olivr/lc-doom.git</RepositoryUrl>
     <Title>$(AssemblyName)</Title>
   </PropertyGroup>
 
