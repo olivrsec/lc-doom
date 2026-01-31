@@ -19,8 +19,9 @@ internal sealed class UnityDoom : IDisposable
     private readonly GameContent content;
 
     private readonly ManagedDoom.Doom? doom;
-    private readonly int fpsScale;
-    private int frameCount;
+    private readonly bool timedemo;
+    private float accumulatedTime;
+    private const float TicDuration = 1f / 35f;
 
     private UnitySound? sound;
     private UnityUserInput? userInput;
@@ -46,8 +47,7 @@ internal sealed class UnityDoom : IDisposable
                 default!,
                 userInput = new(config));
 
-            frameCount = -1;
-            fpsScale = args.timedemo.Present ? 1 : config.video_fpsscale;
+            timedemo = args.timedemo.Present;
         }
         catch (Exception exception)
         {
@@ -120,17 +120,28 @@ internal sealed class UnityDoom : IDisposable
 
     public bool Render()
     {
-        if ((frameCount += 1) % fpsScale is 0)
+        if (timedemo)
         {
             var result = doom!.Update();
-            if (result is UpdateResult.Completed)
-            {
-                return false;
-            }
+            if (result is UpdateResult.Completed) return false;
+            video!.Render(doom!, Fixed.One);
+            return true;
+        }
 
-            video!.Render(
-                doom!,
-                Fixed.FromInt(frameCount % fpsScale + 1) / fpsScale);
+        accumulatedTime += Time.deltaTime;
+        bool updated = false;
+
+        while (accumulatedTime >= TicDuration)
+        {
+            var result = doom!.Update();
+            if (result is UpdateResult.Completed) return false;
+            accumulatedTime -= TicDuration;
+            updated = true;
+        }
+
+        if (updated)
+        {
+            video!.Render(doom!, Fixed.One);
         }
 
         return true;
@@ -170,7 +181,7 @@ public sealed class DoomConfigBinder(ConfigFile file, (int width, int height) si
     public ConfigEntry<bool> VideoDisplayMessage { get; } = file.Bind("Video", "Display Message", true);
     public ConfigEntry<int> VideoFpsScale { get; } = file.Bind("Video", "FPS Scale", 2);
     public ConfigEntry<int> VideoGammaCorrection { get; } = file.Bind("Video", "Gamma Correction", 2);
-    public ConfigEntry<bool> VideoHighResolution { get; } = file.Bind("Video", "High Resolution", true);
+    public ConfigEntry<bool> VideoHighResolution { get; } = file.Bind("Video", "High Resolution", false);
     public ConfigEntry<int> VideoScreenSize { get; } = file.Bind("Video", "Screen Size", 7);
 
     public Config GetConfig() => new()

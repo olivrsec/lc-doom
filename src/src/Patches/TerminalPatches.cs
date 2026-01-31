@@ -163,7 +163,7 @@ LOADING .... ";
                 yield break;
             }
 
-            yield return new WaitForEndOfFrame();
+            yield return null;
         }
     }
 }
